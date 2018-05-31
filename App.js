@@ -5,19 +5,21 @@
  */
 
 import React, { Component } from 'react'
-import Header from './components/header'
-import Body from './components/body'
-import {
-  Platform,
-  StyleSheet,
-  Button,
-  Alert,
-  View,
-  AppRegistry
-} from 'react-native';
-
-AppRegistry.registerComponent('header', () => Header)
-AppRegistry.registerComponent('body', () => Body)
+import Router from './router'
+import { 
+  Container, 
+  Header,
+  Title,
+  Content, 
+  Footer, 
+  FooterTab, 
+  Button, 
+  Left, 
+  Right, 
+  Body, 
+  Icon, 
+  Text 
+} from 'native-base'
 
 export default class App extends Component {
   constructor() {
@@ -27,41 +29,22 @@ export default class App extends Component {
       tasks: []
     }
   }
-  addTask = () => {
-    const newTask = {
-      text: this.state.text,
-      key: Date.now()
-    }
-    this.setState({
-      tasks: [...this.state.tasks, newTask],
-      text: ''
-    })
-  }
-  changeValue = (text) => {
-    this.setState({text})
-  } 
-  myAwesomeMethod() {
-    Alert.alert('Awesome title', 'Awesome message')
-  }
-  deleteItem = (item) => {
-    const newTasks = this.state.tasks.filter(e => e.key != item.key)
-    this.setState({
-      tasks: newTasks
-    })
-  }
   render() {
     return (
-      <View style={styles.parent}>
-        <Header
-        changeText={this.changeValue}
-        text={this.state.text}
-        addTask={this.addTask}
-        />
-        <Body
-        deleteItem={this.deleteItem}
-        tasks={this.state.tasks}
-        />
-      </View>
+      <Container>
+        <Header>
+          <Left>
+            <Button transparent>
+              <Icon name='menu' />
+            </Button>
+          </Left>
+          <Body>
+            <Title>Header</Title>
+          </Body>
+          <Right />
+        </Header>
+        <Router/>
+      </Container>
     );
   }
 }
